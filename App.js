@@ -11,6 +11,7 @@ import ForgotPassVerification from './Components/ForgotPassVerification';
 import ForgotPassword from './Components/ForgotPassword';
 import NewPassword from './Components/NewPassword';
 import SignIn from './Components/Signin';
+import Garden from './Components/Garden';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -22,14 +23,19 @@ import Voting from './Components/Voting';
 import Feature from './Components/Feature';
 import Setcustom from './Components/SetCustom';
 import Earnatrophy from './Components/Earnatrophy';
+import Lottery from './Components/Lottery';
 import Grocerystore from './Components/Grocerystore';
+import Buyitem from './Components/Buyitem';
+import PlayerDetails from './Components/PlayerDetails';
+import Updatestepspoints from './Components/UpdateStepsPoints';
+import Groupvote from './Components/Groupvote';
 const stack = createNativeStackNavigator();
 export default function App() {
   return (
     <PaperProvider>
       <View style={styles.cnt}>
         <NavigationContainer>
-          <stack.Navigator initialRouteName='Grocery' screenOptions={{headerShown: false}}>
+          <stack.Navigator initialRouteName='Wel' screenOptions={{headerShown: false}}>
             <stack.Screen name = 'Login' component={Login} />
             <stack.Screen name = 'LeaderBoard' component={LeaderBoard} />
             <stack.Screen name = 'OtpVer' component={OtpVerification} />
@@ -49,6 +55,12 @@ export default function App() {
             <stack.Screen name = 'Setcust' component={Setcustom} />
             <stack.Screen name = 'Earn' component={Earnatrophy} />
             <stack.Screen name = 'Grocery' component={Grocerystore} />
+            <stack.Screen name = 'Lottery' component={Lottery} />
+            <stack.Screen name = 'Buy' component={Buyitem} />
+            <stack.Screen name = 'Garden' component={Garden} />
+            <stack.Screen name = 'Player' component={PlayerDetails} />
+            <stack.Screen name = 'Update' component={Updatestepspoints} />
+            <stack.Screen name = 'Groupvote' component={Groupvote} />
           </stack.Navigator>
         </NavigationContainer>
       </View>

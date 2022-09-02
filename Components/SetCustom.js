@@ -55,25 +55,79 @@ function Setcustom({ navigation, route }){
             <View style={{flexDirection:'column', marginTop:'3%'}}>
                 <View style={{flexDirection:'row', marginTop:'3%'}}>
                     <View style={{flexDirection:'column', width:'50%', height:'100%', backgroundColor:'#0DA66D', margin:'2%'}}>
-                        <Button color='white'>10000</Button>
+                        <Button color='white' onPress={() => {
+                            axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                grpid: route.params.grpid,
+                                cust: '10000'
+                            }).then((response) => {
+                                alert(response.data);
+                            }).catch((err) => {
+                                alert(err.message);
+                            })
+                        }}>10000</Button>
                     </View>
                     <View style={{flexDirection:'column', width:'50%', height:'100%', backgroundColor:'#0DA66D', margin:'2%'}}>
-                        <Button color='white'>12000</Button>
+                        <Button color='white' onPress={() => {
+                            axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                grpid: route.params.grpid,
+                                cust: '12000'
+                            }).then((response) => {
+                                alert(response.data);
+                            }).catch((err) => {
+                                alert(err.message);
+                            })
+                        }}>12000</Button>
                     </View>
                 </View>
                 <View style={{flexDirection:'row', marginTop:'3%'}}>
                     <View style={{flexDirection:'column', width:'50%', height:'100%', backgroundColor:'#0DA66D', margin:'2%'}}>
-                        <Button color='white'>15000</Button>
+                        <Button color='white' onPress={() => {
+                            axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                grpid: route.params.grpid,
+                                cust: '15000'
+                            }).then((response) => {
+                                alert(response.data);
+                            }).catch((err) => {
+                                alert(err.message);
+                            })
+                        }}>15000</Button>
                     </View>
                     <View style={{flexDirection:'column', width:'50%', height:'100%', backgroundColor:'#0DA66D', margin:'2%'}}>
-                        <Button color='white'>17000</Button>
+                        <Button color='white' onPress={() => {
+                            axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                grpid: route.params.grpid,
+                                cust: '17000'
+                            }).then((response) => {
+                                alert(response.data);
+                            }).catch((err) => {
+                                alert(err.message);
+                            })
+                        }}>17000</Button>
                     </View>
                 </View><View style={{flexDirection:'row', marginTop:'3%'}}>
                     <View style={{flexDirection:'column', width:'50%', height:'100%', backgroundColor:'#0DA66D', margin:'2%'}}>
-                        <Button color='white'>18000</Button>
+                        <Button color='white' onPress={() => {
+                            axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                grpid: route.params.grpid,
+                                cust: '18000'
+                            }).then((response) => {
+                                alert(response.data);
+                            }).catch((err) => {
+                                alert(err.message);
+                            })
+                        }}>18000</Button>
                     </View>
                     <View style={{flexDirection:'column', width:'50%', height:'100%', backgroundColor:'#0DA66D', margin:'2%'}}>
-                        <Button color='white'>20000</Button>
+                        <Button color='white' onPress={() => {
+                            axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                grpid: route.params.grpid,
+                                cust: '20000'
+                            }).then((response) => {
+                                alert(response.data);
+                            }).catch((err) => {
+                                alert(err.message);
+                            })
+                        }}>20000</Button>
                     </View>
                 </View>
             </View>
@@ -84,52 +138,87 @@ function Setcustom({ navigation, route }){
             </View>
             <View style={{flexDirection:'column', marginTop:'10%'}}>
                 <View style={{flexDirection:'column', width:'90%', alignContent:'center', justifyContent:'center', marginLeft:20, marginTop:10, backgroundColor:'#0DA66D'}}>
-                    <Button color='white'>Set Custom</Button>
+                    <Button color='white' onPress={() => {
+                        axios.post('https://fitness-game-server.herokuapp.com/addfinal', {
+                            grpid: route.params.grpid,
+                            decision:'set custom',
+                            description:route.params.description,
+                            email:route.params.email
+                        }).then((rep) => {
+                            if(rep.data === 'Decision added'){
+                                axios.post('https://fitness-game-server.herokuapp.com/setcustom', {
+                                    grpid: route.params.grpid,
+                                    cust: custom
+                                }).then((response) => {
+                                    alert(response.data);
+                                    navigation.navigate('User', {
+                                        email: route.params.email,
+                                        grpid: route.params.grpid
+                                    })
+                                }).catch((err) => {
+                                    alert(err.message);
+                                })
+                            }
+                        }).catch((er)=>{
+                            alert(er.message);
+                        })
+                    }}>Set Custom</Button>
                 </View>
             </View>
-            <View style={{width:'100%', height:'10%', flexDirection:'row', backgroundColor:'black', marginTop:'40%'}}>
-                <View style={styles.column}>
-                    <Button icon='map-marker' color='white' labelStyle={{fontSize: 30}} onPress={() => {
-                        navigation.navigate('LevelPage', {
-                            grpid: route.params.grpid
-                        })
-                    }}>
-                    </Button>
-                </View>
-                <View style={styles.column}>
-                    <Button icon='menu' color='white' labelStyle={{fontSize: 30}} onPress={() => {
-                        navigation.navigate('LeaderBoard');
-                    }}>
-                    </Button>
-                </View>
-                <View style={styles.column}>
-                    <Button icon='home' color='white' labelStyle={{fontSize: 40}} onPress={() => {
-                        navigation.navigate('User', {
-                            email: route.params.email
-                        })
-                    }}>
-                    </Button>
-                </View>
-                <View style={styles.column}>
-                    <Button icon='bell' color='white' labelStyle={{fontSize: 30}} onPress={() => {
-                        navigation.navigate('Notification', {
-                            email: route.params.email
-                        })
-                    }}>
-                    </Button>
-                </View>
-                <View style={styles.column}>
-                    <Button icon='information' color='white' labelStyle={{fontSize: 30}}>
-                    </Button>
-                </View>
-                <View style={styles.column}>
-                    <Button icon='filter-variant' color='white' labelStyle={{fontSize: 30}}>
-                    </Button>
-                </View>
-                <View style={styles.column}>
-                    <Button icon='send' color='white' labelStyle={{fontSize: 30}}>
-                    </Button>
-                </View>
+            <View style={{width:'100%', height:'10%', flexDirection:'row', backgroundColor:'black'}}>
+                    <View style={styles.column}>
+                        <Button icon='map-marker' color='white' labelStyle={{fontSize: 30}} onPress={() => {
+                            navigation.navigate('LevelPage', {
+                                grpid: route.params.grpid,
+                                email: route.params.email
+                            })
+                        }}>
+                        </Button>
+                    </View>
+                    <View style={styles.column}>
+                        <Button icon='menu' color='white' labelStyle={{fontSize: 30}} onPress={() => {
+                            navigation.navigate('LeaderBoard', {
+                                email: route.params.email,
+                                grpid: route.params.grpid
+                            });
+                        }}>
+                        </Button>
+                    </View>
+                    <View style={styles.column}>
+                        <Button icon='home' color='white' labelStyle={{fontSize: 40}} onPress={() => {
+                            navigation.navigate('User', {
+                                email: route.params.email,
+                                grpid: route.params.grpid
+                            })
+                        }}>
+                        </Button>
+                    </View>
+                    <View style={styles.column}>
+                        <Button icon='bell' color='white' labelStyle={{fontSize: 30}} onPress={() => {
+                            navigation.navigate('Notification', {
+                                email: route.params.email,
+                                grpid: route.params.grpid
+                            })
+                        }}>
+                        </Button>
+                    </View>
+                    <View style={styles.column}>
+                        <Button icon='information' onPress={() => {
+                            navigation.navigate('Feature', {
+                                email: route.params.email,
+                                grpid: route.params.grpid
+                            })
+                        }} color='white' labelStyle={{fontSize: 30}}>
+                        </Button>
+                    </View>
+                    <View style={styles.column}>
+                        <Button icon='filter-variant' color='white' labelStyle={{fontSize: 30}}>
+                        </Button>
+                    </View>
+                    <View style={styles.column}>
+                        <Button icon='send' color='white' labelStyle={{fontSize: 30}}>
+                        </Button>
+                    </View>
                 </View>
         </View>
     );

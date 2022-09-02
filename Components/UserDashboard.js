@@ -15,7 +15,7 @@ function UserDashboard ({ navigation, route }){
             if(response.data !== 'User does not exist'){
                 setUserDetails(response.data[0]);
                 axios.post('https://fitness-game-server.herokuapp.com/retgrpdata', {
-                    grpid: userDetails.grpid
+                    grpid: response.data[0].grpid
                 }).then((resp) => {
                     if(resp.data !== 'There is no such group id'){
                         setWeekGoal(resp.data[0].weekGoal);
@@ -23,9 +23,18 @@ function UserDashboard ({ navigation, route }){
                             if(e[0] === route.params.email){
                                 setStatus(e[1]);
                                 console.log("done");
+                                axios.post('https://fitness-game-server.herokuapp.com/chkfinaldecision',{
+                                    grpid: resp.data[0].grpid
+                                }).then((rep) => {
+                                    if(rep.data === 'No'){
+                                        navigation.navigate('Vote', {
+                                            email: route.params.email,
+                                            grpid: resp.data[0].grpid
+                                        });
+                                    }
+                                })
                             }
                         });
-                        console.log(resp.data);
                     }
                 }).catch((er) => {
                     alert(er.message);
@@ -40,12 +49,11 @@ function UserDashboard ({ navigation, route }){
     }, [userDetails]);
     return(
         <View style={styles.container}>
-            <ImageBackground source={Volleyball} resizeMode='contain' style={{height:'100%', backgroundColor: 'black', opacity:0.7}}>
                 <View style={styles.row1}>
                     <Text style={{fontSize: 50, alignContent:'center', alignSelf:'center', color:'#FFA103'}}>FitTrack</Text>
                 </View>
-                <View style={{width: '100%', height:'20%', flexDirection:'row', backgroundColor:'black', opacity:0.5}}>
-                    <View style={{flexDirection:'column', width:'30%', height:'100%', marginLeft:35, backgroundColor:'transparent', opacity:0.8}}>
+                <View style={{width: '100%', height:'20%', flexDirection:'row'}}>
+                    <View style={{flexDirection:'column', width:'30%', height:'100%', marginLeft:35, backgroundColor:'transparent'}}>
                         <Avatar.Text label={''+userDetails.grpid[0]+userDetails.grpid[1]} size={65} style={{marginTop: 25, textAlign:'center'}} />
                     </View>
                     <View style={{flexDirection:'column', width:'60%', height:'100%', backgroundColor:'transparent'}}>
@@ -105,25 +113,32 @@ function UserDashboard ({ navigation, route }){
                         </View>
                     </Card>
                 </View>
+                <View style={{flexDirection:'column'}}>
+                    <View style={{flexDirection:'row'}}>
+                        <Button color='white' onPress={() => {
+                            navigation.navigate('GroupDash', {
+                                email: route.params.email,
+                                grpid: userDetails.grpid
+                            })
+                        }} style={{width:'80%', marginLeft:'10%', backgroundColor:'green'}}>Group Details</Button>
+                    </View>
+                </View>
                 <View style={{width:'100%', height:'10%', flexDirection:'row', backgroundColor:'black'}}>
                 <View style={styles.column}>
                     <Button icon='map-marker' color='white' labelStyle={{fontSize: 30}} onPress={() => {
                         navigation.navigate('LevelPage', {
-                            grpid: () => {
-                                if(userDetails !== undefined){
-                                    return userDetails.grpid
-                                }
-                                else{
-                                    return "abc"
-                                }
-                            }
+                            grpid: userDetails.grpid,
+                            email: userDetails.email
                         })
                     }}>
                     </Button>
                 </View>
                 <View style={styles.column}>
                     <Button icon='menu' color='white' labelStyle={{fontSize: 30}} onPress={() => {
-                        navigation.navigate('LeaderBoard');
+                        navigation.navigate('LeaderBoard', {
+                            email: route.params.email,
+                            grpid: userDetails.grpid
+                        });
                     }}>
                     </Button>
                 </View>
@@ -134,7 +149,8 @@ function UserDashboard ({ navigation, route }){
                 <View style={styles.column}>
                     <Button icon='bell' color='white' labelStyle={{fontSize: 30}} onPress={() => {
                         navigation.navigate('Notification', {
-                            email: route.params.email
+                            email: route.params.email,
+                            grpid: userDetails.grpid
                         })
                     }}>
                     </Button>
@@ -143,14 +159,7 @@ function UserDashboard ({ navigation, route }){
                     <Button icon='information' color='white' labelStyle={{fontSize: 30}} onPress={() => {
                         navigation.navigate('Feature', {
                             email: route.params.email,
-                            grpid: () => {
-                                if(userDetails !== undefined){
-                                    return userDetails.grpid
-                                }
-                                else{
-                                    return "abc"
-                                }
-                            }
+                            grpid: userDetails.grpid
                         })
                     }}>
                     </Button>
@@ -160,7 +169,6 @@ function UserDashboard ({ navigation, route }){
                     </Button>
                 </View>
                 </View>
-            </ImageBackground>
         </View>
     );
 }
@@ -169,10 +177,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width:'100%',
-        height: '100%'
+        height: '100%',
+        backgroundColor:'black'
     },
     row1:{
-      backgroundColor:'black',
       opacity:0.5,
       flexDirection: 'column',
       marginBottom:0,
@@ -182,8 +190,8 @@ const styles = StyleSheet.create({
       fontSize: 50
     },
     column: {
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 20,
+        marginTop: 5,
         flexDirection: 'column'
     }
 })

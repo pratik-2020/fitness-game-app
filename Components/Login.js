@@ -10,7 +10,6 @@ function Login( { navigation } ) {
   const [pass, setPass] = useState("");
   return (
     <View style={styles.viewcontainer}>
-    <ImageBackground source={Neeraj} resizeMode='contain' style={{backgroundColor:'black', opacity:0.9, height:'100%'}}>
       <View style={styles.row1}>
           <Text style={{fontSize: 50, alignContent:'center', alignSelf:'center', color:'white'}}>ExerQuest</Text>
       </View>
@@ -61,7 +60,6 @@ function Login( { navigation } ) {
           </View>
         </View>
       </View>
-    </ImageBackground>
   </View>
   )
 }
@@ -74,7 +72,8 @@ const styles = StyleSheet.create({
     viewcontainer: {
       width: "100%",
       height: "100%",
-      backgroundColor:'transparent'
+      backgroundColor:'black',
+      opacity:0.8
     },
     containercard: {
       marginTop: 150,

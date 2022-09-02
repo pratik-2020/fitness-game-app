@@ -9,7 +9,6 @@ function ForgotPassVerification( { route, navigation } ) {
   const [otp, setOtp ] = useState("");
   return (
     <View style={styles.viewcontainer}>
-    <ImageBackground source={Neeraj} resizeMode='contain' style={{backgroundColor:'black', opacity:0.9, height:'100%'}}>
       <View style={styles.row1}>
           <Text style={{fontSize: 50, alignContent:'center', alignSelf:'center', color:'white'}}>ExerQuest</Text>
       </View>
@@ -42,7 +41,6 @@ function ForgotPassVerification( { route, navigation } ) {
           </View>
         </View>
       </View>
-    </ImageBackground>
   </View>
   )
 }
